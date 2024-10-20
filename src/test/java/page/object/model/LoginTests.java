@@ -44,4 +44,31 @@ public class LoginTests extends BaseTest {
         Assert.assertEquals(actualUserName, name, "The username is incorrect!");
     }
 
+    @DataProvider(name = "getWrongCredentials")
+    public Object[][] getWrongCredentials() {
+        return new Object[][]{
+                {"user_test1", "ttt", "ttt"}
+        };
+    }
+
+    @Test(dataProvider = "getWrongCredentials")
+    public void testLoginFailed (String user, String password, String name) {
+
+        WebDriver driver = getDriver();
+        HomePage homePage = new HomePage(driver);
+        homePage.navigateTo();
+
+        Header header = new Header(driver);
+        header.clickLogin();
+
+        LoginPage loginPage = new LoginPage(driver);
+        Assert.assertTrue(loginPage.isUrlLoaded(), "The Login URL is not correct!");
+        String signInText = loginPage.getSignInElementText();
+        Assert.assertEquals(signInText, "Sign in");
+        loginPage.populateUsername(user);
+        loginPage.populatePassword(password);
+        loginPage.clickSignIn();
+
+        Assert.assertTrue(loginPage.isUrlLoaded(), "The Home URL is not correct!");
+    }
 }

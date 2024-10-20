@@ -34,7 +34,7 @@ public class LoginPage {
 
     public void clickRegister (){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement registerButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/users/register']")));
+        WebElement registerButton = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Register")));
         registerButton.click();
     }
 

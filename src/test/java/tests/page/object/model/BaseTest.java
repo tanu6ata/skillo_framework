@@ -1,4 +1,5 @@
-package base;
+package tests.page.object.model;
+
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +11,7 @@ import org.testng.annotations.BeforeSuite;
 import java.time.Duration;
 
 public class BaseTest {
-    public WebDriver driver;
+    private WebDriver driver;
 
     @BeforeSuite
     protected final void setupTestSuite() {
@@ -29,8 +30,16 @@ public class BaseTest {
 
     @AfterMethod
     protected final void tearDownTest() {
+    quitDriver();
+    }
+
+    private void quitDriver() {
         if (this.driver != null) {
             this.driver.quit();
         }
+    }
+
+    protected WebDriver getDriver() {
+        return driver;
     }
 }

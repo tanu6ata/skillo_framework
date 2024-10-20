@@ -1,6 +1,6 @@
-package tests;
+package tests.page.object.model;
 
-import base.BaseTest;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import page.object.model.Header;
@@ -23,21 +23,18 @@ public class ProfileTests  extends BaseTest {
 
     @Test(dataProvider = "getUsers")
     public void testProfilePage(String user, String password, String name) {
-        HomePage homePage = new HomePage(driver);
-        homePage.navigateTo();
 
-        Header header = new Header(driver);
-        header.clickLogin();
+        WebDriver driver = getDriver();
 
         LoginPage loginPage = new LoginPage(driver);
-        Assert.assertTrue(loginPage.isUrlLoaded(), "The Login URL is not correct!");
-        String signInText = loginPage.getSignInElementText();
-        Assert.assertEquals(signInText, "Sign in");
-        loginPage.populateUsername(user);
-        loginPage.populatePassword(password);
-        loginPage.clickSignIn();
+        //Navigate directly to Login page
+        loginPage.navigateTo();
+        loginPage.login(user, password);
 
+        HomePage homePage = new HomePage(driver);
         Assert.assertTrue(homePage.isUrlLoaded(), "The Home URL is not correct!");
+
+        Header header = new Header(driver);
         header.clickProfile();
 
         ProfilePage profilePage = new ProfilePage(driver);

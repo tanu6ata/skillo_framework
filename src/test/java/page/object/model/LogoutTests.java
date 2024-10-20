@@ -1,15 +1,10 @@
-package tests.page.object.model;
+package page.object.model;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import page.object.model.Header;
-import page.object.model.HomePage;
-import page.object.model.LoginPage;
-import page.object.model.ProfilePage;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
-public class LoginTests extends BaseTest {
+public class LogoutTests extends BaseTest {
 
     @DataProvider(name = "getUsers")
     public Object[][] getUsers() {
@@ -23,29 +18,23 @@ public class LoginTests extends BaseTest {
     }
 
     @Test(dataProvider = "getUsers")
-    public void testLogin(String user, String password, String name) {
-        WebDriver driver = getDriver();
-        HomePage homePage = new HomePage(driver);
-        homePage.navigateTo();
+    public void testLogout(String user, String password, String name) {
 
-        Header header = new Header(driver);
-        header.clickLogin();
+        WebDriver driver = getDriver();
 
         LoginPage loginPage = new LoginPage(driver);
+        //Navigate directly to Login page
+        loginPage.navigateTo();
+        loginPage.login(user, password);
+
+        HomePage homePage = new HomePage(driver);
+        Assert.assertTrue(homePage.isUrlLoaded(), "The Home URL is not correct!");
+
+        Header header = new Header(driver);
+        header.clickLogout();
         Assert.assertTrue(loginPage.isUrlLoaded(), "The Login URL is not correct!");
         String signInText = loginPage.getSignInElementText();
         Assert.assertEquals(signInText, "Sign in");
-        loginPage.populateUsername(user);
-        loginPage.populatePassword(password);
-        loginPage.clickSignIn();
-
-        Assert.assertTrue(homePage.isUrlLoaded(), "The Home URL is not correct!");
-        header.clickProfile();
-
-        ProfilePage profilePage = new ProfilePage(driver);
-        Assert.assertTrue(profilePage.isUrlLoaded(), "The Profile URL is not correct!");
-        String actualUserName = profilePage.getUsername();
-        Assert.assertEquals(actualUserName, name, "The username is incorrect!");
     }
 
 }

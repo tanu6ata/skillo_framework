@@ -1,4 +1,4 @@
-package tests.page.object.model;
+package page.object.model;
 
 
 import io.github.bonigarcia.wdm.WebDriverManager;

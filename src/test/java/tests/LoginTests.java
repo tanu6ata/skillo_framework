@@ -1,20 +1,20 @@
-package page.object.model;
+package tests;
 
+import page.object.model.Header;
+import page.object.model.HomePage;
+import page.object.model.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import page.object.model.ProfilePage;
 
 public class LoginTests extends BaseTest {
 
     @DataProvider(name = "getUsers")
     public Object[][] getUsers() {
         return new Object[][]{
-                {"user_test1", "user_test1", "user_test1"},
-//                {"DimitarTarkalanov", "Dimitar1.Tarkalanov1", "DimitarTarkalanov"}, //login with username
-//                {"testMail1@gmail.com", "Dimitar1.Tarkalanov1", "DimitarTarkalanov"}, //login with email
-//                {"testAdmin@gmail.com", "Admin1.User1", "AdminUser"}, //login with admin user
-//                {"manager@gmail.com", "Manager1.Use1", "ManagerUser"} //login with manager user
+                {"user_test1", "user_test1", "user_test1"}
         };
     }
 
@@ -35,6 +35,7 @@ public class LoginTests extends BaseTest {
         loginPage.populatePassword(password);
         loginPage.clickSignIn();
 
+        //Verify results
         Assert.assertTrue(homePage.isUrlLoaded(), "The Home URL is not correct!");
         header.clickProfile();
 
@@ -44,15 +45,15 @@ public class LoginTests extends BaseTest {
         Assert.assertEquals(actualUserName, name, "The username is incorrect!");
     }
 
-    @DataProvider(name = "getWrongCredentials")
-    public Object[][] getWrongCredentials() {
+    @DataProvider(name = "provideWrongCredentials")
+    public Object[][] provideWrongCredentials() {
         return new Object[][]{
-                {"user_test1", "ttt", "ttt"}
+                {"user_test1", "ttt"}
         };
     }
 
-    @Test(dataProvider = "getWrongCredentials")
-    public void testLoginFailed (String user, String password, String name) {
+    @Test(dataProvider = "provideWrongCredentials")
+    public void testLoginFailed (String user, String password) {
 
         WebDriver driver = getDriver();
         HomePage homePage = new HomePage(driver);
@@ -69,6 +70,7 @@ public class LoginTests extends BaseTest {
         loginPage.populatePassword(password);
         loginPage.clickSignIn();
 
-        Assert.assertTrue(loginPage.isUrlLoaded(), "The Home URL is not correct!");
+        //Verify results
+        Assert.assertTrue(loginPage.isUrlLoaded(), "The Login URL is not correct!");
     }
 }

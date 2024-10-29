@@ -1,10 +1,12 @@
-package page.object.model;
+package tests;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import page.object.model.LoginPage;
+import page.object.model.RegistrationPage;
 
 public class RegistrationTests extends BaseTest {
 
@@ -35,6 +37,7 @@ public class RegistrationTests extends BaseTest {
         Assert.assertEquals(signUpText, "Sign up");
         registrationPage.populateUsername(user);
         registrationPage.populateEmail(email);
+        //The test fails on populateBirthDate!!!
         registrationPage.populateBirthDate(date);
         registrationPage.populatePassword(password);
         registrationPage.populateConfirmPassword(password);

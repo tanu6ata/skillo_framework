@@ -15,23 +15,35 @@ public class Header {
         this.driver = driver;
     }
 
+    /**
+     * Method that clicks Logon button
+     */
     public void clickLogin() {
         WebElement loginLink = driver.findElement(By.id("nav-link-login"));
         loginLink.click();
     }
 
+    /**
+     * Method that clicks Profile Link
+     */
     public void clickProfile() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement profileLink = wait.until(ExpectedConditions.elementToBeClickable(By.id("nav-link-profile")));
         profileLink.click();
     }
 
+    /**
+     * Method that clicks New Post button
+     */
     public void clickNewPost() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement postLink = wait.until(ExpectedConditions.elementToBeClickable(By.id("nav-link-new-post")));
         postLink.click();
     }
 
+    /**
+     * Method that clicks Logout button
+     */
     public void clickLogout() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement logOutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class,'fas fa-sign-out-alt fa-lg')]")));

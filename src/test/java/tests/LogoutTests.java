@@ -1,30 +1,27 @@
-package factory.model;
+package tests;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import page.factory.Header;
-import page.factory.HomePage;
-import page.factory.LoginPage;
+import org.testng.annotations.*;
+import page.object.model.Header;
+import page.object.model.HomePage;
+import page.object.model.LoginPage;
 
-public class LogoutTests extends BaseTest{
+public class LogoutTests extends BaseTest {
 
     @DataProvider(name = "getUsers")
     public Object[][] getUsers() {
         return new Object[][]{
-                {"user_test1", "user_test1", "user_test1"}, //login with username
-//                {"testMail1@gmail.com", "Dimitar1.Tarkalanov1", "DimitarTarkalanov"}, //login with email
-//                {"testAdmin@gmail.com", "Admin1.User1", "AdminUser"}, //login with admin user
-//                {"manager@gmail.com", "Manager1.Use1", "ManagerUser"} //login with manager user
+                {"user_test1", "user_test1"}
         };
     }
 
     @Test(dataProvider = "getUsers")
-    public void testLogout(String user, String password, String name) {
+    public void testLogout(String user, String password) {
+
         WebDriver driver = getDriver();
 
-        LoginPage loginPage= new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(driver);
         //Navigate directly to Login page
         loginPage.navigateTo();
         loginPage.login(user, password);
@@ -34,6 +31,7 @@ public class LogoutTests extends BaseTest{
 
         Header header = new Header(driver);
         header.clickLogout();
+        //Verify results
         Assert.assertTrue(loginPage.isUrlLoaded(), "The Login URL is not correct!");
         String signInText = loginPage.getSignInElementText();
         Assert.assertEquals(signInText, "Sign in");

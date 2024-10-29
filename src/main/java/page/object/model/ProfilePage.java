@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class ProfilePage {
     public static final String PAGE_URL = "http://training.skillo-bg.com:4300/users/";
@@ -24,5 +25,15 @@ public class ProfilePage {
     public boolean isUrlLoaded() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         return wait.until(ExpectedConditions.urlContains(ProfilePage.PAGE_URL));
+    }
+
+    public int getPostCount() {
+        List<WebElement> posts = driver.findElements(By.tagName("app-post"));
+        return posts.size();
+    }
+
+    public void clickPost(int postIndex) {
+        List<WebElement> posts = driver.findElements(By.tagName("app-post"));
+        posts.get(postIndex).click();
     }
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Parallel Test Suite" parallel="methods" thread-count="1">
+    <test name="Page Object Tests">
+        <classes>
+            <class name="page.object.model.LoginTests"/>
+            <class name="page.object.model.LogoutTests"/>
+            <class name="page.object.model.ProfileTests"/>
+            <class name="page.object.model.RegistrationTests"/>
+        </classes>
+    </test>
+    <test name="Page Factory Tests">
+        <classes>
+            <class name="factory.model.LoginTests"/>
+            <class name="factory.model.LogoutTests"/>
+        </classes>
+    </test>
+</suite>

@@ -17,43 +17,75 @@ public class RegistrationPage {
         this.driver = driver;
     }
 
+    /**
+     * Method that populates data in Password field
+     * @param password
+     */
     public void populatePassword(String password) {
         WebElement passwordField = driver.findElement(By.id("defaultRegisterFormPassword"));
         passwordField.sendKeys(password);
         new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    /**
+     * Method that populates data in Confirm Password field
+     * @param password
+     */
     public void populateConfirmPassword(String password) {
         WebElement passwordField = driver.findElement(By.id("defaultRegisterPhonePassword"));
         passwordField.sendKeys(password);
         new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    /**
+     * Method that populates data in Username field
+     * @param username
+     */
     public void populateUsername(String username) {
         WebElement userNameField = driver.findElement(By.name("username"));
         userNameField.sendKeys(username);
     }
 
+    /**
+     * Method that populates data in Email field
+     * @param email
+     */
     public void populateEmail(String email) {
         WebElement emailField = driver.findElement(By.cssSelector("[type='email']"));
         emailField.sendKeys(email);
     }
 
+    /**
+     * Method that populates data in BirthDate field
+     * @param date
+     */
     public void populateBirthDate(String date) {
         WebElement birthDateField = driver.findElement(By.cssSelector("[type='date']"));
         birthDateField.sendKeys(date);
     }
 
+    /**
+     * Method that populates data in Public Info field
+     * @param info
+     */
     public void populatePublicInfo(String info) {
         WebElement publicInfoField = driver.findElement(By.name("pulic-info"));
         publicInfoField.sendKeys(info);
     }
 
+    /**
+     *
+     * @return expected URL
+     */
     public boolean isUrlLoaded() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         return wait.until(ExpectedConditions.urlToBe(RegistrationPage.PAGE_URL));
     }
 
+    /**
+     *
+     * @return text of SignUp Element
+     */
     public String getSignUpElementText() {
         WebElement signUpFormTitle = driver.findElement(By.className("mb-4"));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

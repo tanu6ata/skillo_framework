@@ -24,22 +24,34 @@ public class Header {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Method that clicks Logon button
+     */
     public void clickLogin() {
         loginLink.click();
     }
 
+    /**
+     * Method that clicks Profile Link
+     */
     public void clickProfile() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(profileLink));
         profileLink.click();
     }
 
+    /**
+     * Method that clicks New Post button
+     */
     public void clickNewPost() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement postLink = wait.until(ExpectedConditions.elementToBeClickable(By.id("nav-link-new-post")));
         postLink.click();
     }
 
+    /**
+     * Method that clicks Logout button
+     */
     public void clickLogout() {
         logoutLink.click();
     }

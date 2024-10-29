@@ -42,6 +42,28 @@ public class Header {
     }
 
     /**
+     * Method that populates Search field with some data
+     * @param searchData enter the data that you want to search for
+     */
+    public void populateSearchField(String searchData) {
+        WebElement searchField = driver.findElement(By.id("search-bar"));
+        searchField.sendKeys(searchData);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement searchDropdown = driver.findElement(By.className("dropdown-container"));
+        wait.until(ExpectedConditions.visibilityOf(searchDropdown));
+    }
+
+    /**
+     * Method that clicks on the first element from the Search dropdown
+     */
+    public void clickFirstElementFromSearchDropdown() {
+        WebElement firstElementFromDropdown = driver.findElement(By.xpath("//div[@class=\"dropdown-container\"]//a"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(firstElementFromDropdown));
+        firstElementFromDropdown.click();
+    }
+
+    /**
      * Method that clicks Logout button
      */
     public void clickLogout() {

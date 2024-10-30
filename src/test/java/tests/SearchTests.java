@@ -16,7 +16,7 @@ public class SearchTests extends BaseTest{
     }
 
     @Test(dataProvider = "getUsers")
-    public void testSearchField(String user, String password, String searchData) {
+    public void testSearchField (String user, String password, String searchData) {
         WebDriver driver = getDriver();
 
         LoginPage loginPage = new LoginPage(driver);
@@ -39,4 +39,5 @@ public class SearchTests extends BaseTest{
         String actualUserName = profilePage.getUsername();
         Assert.assertEquals(actualUserName, searchData, "The username is incorrect!");
     }
+
 }

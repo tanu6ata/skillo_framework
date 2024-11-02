@@ -1,8 +1,6 @@
 package page.object.model;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -24,13 +22,5 @@ public class HomePage {
     public void navigateTo() {
         this.driver.get(PAGE_URL);
     }
-
-    public void clickFollow() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement followButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Follow')]")));
-        followButton.click();
-
-    }
-
 
 }

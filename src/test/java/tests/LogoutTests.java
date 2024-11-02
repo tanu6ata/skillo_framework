@@ -3,9 +3,9 @@ package tests;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import page.object.model.Header;
-import page.object.model.HomePage;
-import page.object.model.LoginPage;
+import page.factory.Header;
+import page.factory.HomePage;
+import page.factory.LoginPage;
 
 public class LogoutTests extends BaseTest {
 

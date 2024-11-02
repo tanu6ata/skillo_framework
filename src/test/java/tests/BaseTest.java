@@ -50,11 +50,6 @@ public class BaseTest {
         }
     }
 
-    /**
-     * Method that deletes all files in the Resources' directories
-     * @param directoryPath
-     * @throws IOException
-     */
     private void cleanDirectory(String directoryPath) throws IOException {
         File directory = new File(directoryPath);
 
@@ -69,10 +64,6 @@ public class BaseTest {
         }
     }
 
-    /**
-     * Method that takes screenshots of failed tests
-     * @param testResult
-     */
     private void takeScreenshot(ITestResult testResult) {
         if (ITestResult.FAILURE == testResult.getStatus()) {
             try {

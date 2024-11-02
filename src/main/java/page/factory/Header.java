@@ -1,5 +1,6 @@
 package page.factory;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,6 +30,7 @@ public class Header {
 
     public Header(WebDriver driver) {
         this.driver = driver;
+        // Initialize PageFactory elements
         PageFactory.initElements(driver, this);
     }
 
@@ -48,10 +50,6 @@ public class Header {
         postLink.click();
     }
 
-    /**
-     * Method that populates Search field with some data
-     * @param searchData enter the data that you want to search for
-     */
     public void populateSearchField(String searchData) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(searchField));
@@ -61,9 +59,11 @@ public class Header {
     }
 
     public void clickFirstElementFromSearchDropdown() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.elementToBeClickable(firstElementFromDropdown));
-        firstElementFromDropdown.click();
+        try {
+            firstElementFromDropdown.click();
+        } catch (StaleElementReferenceException e) {
+            firstElementFromDropdown.click();
+        }
     }
 
     public void clickLogout() {

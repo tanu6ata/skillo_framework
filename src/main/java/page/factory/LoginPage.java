@@ -20,9 +20,16 @@ public class LoginPage {
     private WebElement usernameField;
     @FindBy(className = "h4")
     private WebElement signInFormTitle;
+    @FindBy(linkText = "Register")
+    private WebElement registerButton;
+    @FindBy(className = "remember-me-button")
+    private WebElement rememberMeCheckbox;
+    @FindBy(xpath = "//button[@disabled]")
+    private WebElement signInDisabled;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        // Initialize PageFactory elements
         PageFactory.initElements(driver, this);
     }
 
@@ -39,6 +46,10 @@ public class LoginPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(signInButton));
         signInButton.click();
+    }
+
+    public void clickSignInDisabled() {
+        signInDisabled.click();
     }
 
     public void populatePassword(String password) {
@@ -58,5 +69,18 @@ public class LoginPage {
     public boolean isUrlLoaded() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         return wait.until(ExpectedConditions.urlToBe(LoginPage.PAGE_URL));
+    }
+
+
+    public void clickRegister (){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(registerButton));
+        registerButton.click();
+    }
+
+    public void clickRememberMe (){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(rememberMeCheckbox));
+        rememberMeCheckbox.click();
     }
 }

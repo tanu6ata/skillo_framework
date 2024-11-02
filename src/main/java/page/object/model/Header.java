@@ -30,10 +30,6 @@ public class Header {
         postLink.click();
     }
 
-    /**
-     * Method that populates Search field with some data
-     * @param searchData enter the data that you want to search for
-     */
     public void populateSearchField(String searchData) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement searchField = wait.until(ExpectedConditions.elementToBeClickable(By.id("search-bar")));
@@ -43,9 +39,13 @@ public class Header {
     }
 
     public void clickFirstElementFromSearchDropdown() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        WebElement firstElementFromDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class=\"dropdown-container\"]//a[contains(text(), 'MARIELKATA')]")));
-        firstElementFromDropdown.click();
+        try {
+            WebElement firstElementFromDropdown = driver.findElement(By.xpath("//div[@class=\"dropdown-container\"]//a[contains(text(), 'MARIELKATA')]"));
+            firstElementFromDropdown.click();
+        } catch (StaleElementReferenceException e) {
+            WebElement firstElementFromDropdown = driver.findElement(By.xpath("//div[@class=\"dropdown-container\"]//a[contains(text(), 'MARIELKATA')]"));
+            firstElementFromDropdown.click();
+        }
     }
 
     public void clickLogout() {

@@ -2,23 +2,24 @@ package tests;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import page.object.model.*;
+import page.factory.*;
 
 import java.io.File;
 
 public class PostTests extends BaseTest{
     @DataProvider(name = "getUsers")
     public Object[][] getUsers() {
-        File postPicture = new File("src\\test\\resources\\upload\\testUpload.jpg");
-        String caption = "Testing create post caption";
+        File postPicture = new File("src\\test\\resources\\upload\\test_upload_pumpkins.jpg");
+        String caption = "Testing image upload";
 
-        return new Object[][]{{"testMail1@gmail.com", "Dimitar1.Tarkalanov1", "DimitarTarkalanov", postPicture, caption}, {"testAdmin@gmail.com", "Admin1.User1", "AdminUser", postPicture, caption}, {"manager@gmail.com", "Manager1.Use1", "ManagerUser", postPicture, caption}};
+        return new Object[][]{{"user_test1", "user_test1", "user_test1", postPicture, caption}};
     }
 
     @Test(dataProvider = "getUsers")
-    public void testCreatePost(String user, String password, String username, File file, String caption) {
+    public void testCreateAndDeletePost(String user, String password, String username, File file, String caption) {
         //Gets a driver instance from parent class (TestObject)
         WebDriver driver = getDriver();
 
@@ -43,12 +44,21 @@ public class PostTests extends BaseTest{
 
         ProfilePage profilePage = new ProfilePage(driver);
         Assert.assertTrue(profilePage.isUrlLoaded(), "The Profile URL is not correct!");
-        Assert.assertEquals(profilePage.getPostCount(), 1, "The number of Posts is incorrect!");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(profilePage.getPostCount(), 1, "The number of Posts is incorrect!");
+
         profilePage.clickPost(0);
 
         PostModal postModal = new PostModal(driver);
         Assert.assertTrue(postModal.isImageVisible(), "The image is not visible!");
         Assert.assertEquals(postModal.getPostTitle(), caption);
         Assert.assertEquals(postModal.getPostUser(), username);
+
+        //Delete post
+        profilePage.deletePost();
+
+        // Verify post is deleted
+        Assert.assertTrue(postModal.isImageDeleted(), "The image is still visible!");
+        Assert.assertEquals(profilePage.getPostCount(), 0, "The number of Posts is incorrect!");
     }
 }

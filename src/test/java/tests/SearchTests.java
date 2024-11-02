@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import page.object.model.*;
+import page.factory.*;
 
 public class SearchTests extends BaseTest{
 

@@ -7,6 +7,7 @@ and is developed as final project for the Automation QA course of Skillo Academy
 You need to have installed on your machine:
 1. JDK - version 22
 2. IntelliJ - latest community version
+3. Chrome latest version
 
 # Overview
 - Tests are located in src/test/java/tests.

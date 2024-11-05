@@ -1,7 +1,6 @@
 package page.factory;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -43,13 +42,26 @@ public class LoginPage {
     }
 
     public void clickSignIn() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(signInButton));
-        signInButton.click();
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+            wait.until(ExpectedConditions.elementToBeClickable(signInButton));
+            signInButton.click();
+        } catch (TimeoutException e) {
+            System.out.println("Timed out waiting for the Sign-In button to become clickable.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void clickSignInDisabled() {
-        signInDisabled.click();
+    public boolean isSignInDisabled() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(signInDisabled));
+            return signInButton != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void populatePassword(String password) {

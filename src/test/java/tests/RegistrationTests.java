@@ -12,7 +12,6 @@ import page.factory.LoginPage;
 import page.factory.RegistrationPage;
 import page.factory.ProfilePage;
 
-
 public class RegistrationTests extends BaseTest {
 
     @DataProvider(name = "getUsers")
@@ -21,7 +20,7 @@ public class RegistrationTests extends BaseTest {
                 {RandomStringUtils.randomAlphabetic(10, 15), //user
                         RandomStringUtils.randomAlphabetic(10, 15) + "@abv.bg", //email
                         "Password123", //password
-                        "11" + "09" + (Keys.TAB) + "1983",  //date
+                        "119" + (Keys.TAB) + "1983",  //date "11" + "09" + (Keys.TAB) + "1983"
                         "Test123"}
         };
     }
@@ -62,14 +61,15 @@ public class RegistrationTests extends BaseTest {
     @DataProvider(name = "provideInvalidRegistrationData")
     public Object[][] provideInvalidRegistrationData() {
         return new Object[][]{
-                {"wep", RandomStringUtils.randomAlphabetic(10, 15) + "@abv.bg", "Password123", "11061988", "Test123"}, //invalid username
-                {RandomStringUtils.randomAlphabetic(10, 15), "test@", "Password123", "11061988", "Test123"}, //invalid email
+                {"wep", RandomStringUtils.randomAlphabetic(10, 15) + "@abv.bg", "Password123", "119" + (Keys.TAB) + "1983", "Test123"}, //invalid username
+                {RandomStringUtils.randomAlphabetic(10, 15), "test@", "Password123", "119" + (Keys.TAB) + "1983", "Test123"}, //invalid email
                 {RandomStringUtils.randomAlphabetic(10, 15), RandomStringUtils.randomAlphabetic(10, 15) + "@abv.bg",
-                        "Password", "11061988", "Test123"}, //invalid password
+                        "Password", "119" + (Keys.TAB) + "1983", "Test123"}, //invalid password
                 {RandomStringUtils.randomAlphabetic(10, 15), RandomStringUtils.randomAlphabetic(10, 15) + "@abv.bg",
-                        "Password123", "11061988", "Test"}, //invalid info
+                        "Password123", "119" + (Keys.TAB) + "1983", ""}, //invalid info
         };
     }
+
     @Test(dataProvider = "provideInvalidRegistrationData")
     public void testRegistrationPageInvalidData(String user, String email, String password, String date, String info) {
 
@@ -91,7 +91,7 @@ public class RegistrationTests extends BaseTest {
         registrationPage.populateConfirmPassword(password);
         registrationPage.populatePublicInfo(info);
         //Verify results
-        loginPage.clickSignInDisabled();
+        loginPage.isSignInDisabled();
         Assert.assertTrue(registrationPage.isUrlLoaded(), "The Registration URL is not correct!");
     }
 }

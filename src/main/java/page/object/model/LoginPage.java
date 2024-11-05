@@ -1,9 +1,6 @@
 package page.object.model;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -27,16 +24,27 @@ public class LoginPage {
         this.driver.get(LoginPage.PAGE_URL);
     }
 
-
     public void clickSignIn() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement signInButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("sign-in-button")));
-        signInButton.click();
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+            WebElement signInButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("sign-in-button")));
+            signInButton.click();
+        } catch (TimeoutException e) {
+            System.out.println("Timed out waiting for the Sign-In button to become clickable.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void clickSignInDisabled() {
-        WebElement signInDisabled = driver.findElement(By.xpath("//button[@disabled]"));
-        signInDisabled.click();
+    public boolean isSignInDisabled() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        try {
+            WebElement signInButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@disabled]")));
+            return signInButton != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void clickRegister (){

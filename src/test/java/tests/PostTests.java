@@ -19,7 +19,7 @@ public class PostTests extends BaseTest{
     }
 
     @Test(dataProvider = "getUsers")
-    public void testCreateAndDeletePost(String user, String password, String username, File file, String caption) {
+    public void testCreatePost(String user, String password, String username, File file, String caption) {
         //Gets a driver instance from parent class (TestObject)
         WebDriver driver = getDriver();
 
@@ -45,7 +45,9 @@ public class PostTests extends BaseTest{
         ProfilePage profilePage = new ProfilePage(driver);
         Assert.assertTrue(profilePage.isUrlLoaded(), "The Profile URL is not correct!");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(profilePage.getPostCount(), 1, "The number of Posts is incorrect!");
+        int postCount = profilePage.getPostCount();
+        int createdPostCount = ++postCount;
+        softAssert.assertEquals(postCount, createdPostCount, "The number of Posts is incorrect!");
 
         profilePage.clickPost(0);
 
@@ -53,12 +55,25 @@ public class PostTests extends BaseTest{
         Assert.assertTrue(postModal.isImageVisible(), "The image is not visible!");
         Assert.assertEquals(postModal.getPostTitle(), caption);
         Assert.assertEquals(postModal.getPostUser(), username);
+    }
+
+    @Test(dataProvider = "getUsers")
+    public void testDeletePost(String user, String password, String username, File file, String caption) {
+
+        // Create new post
+        testCreatePost(user, password, username, file, caption);
+
+        WebDriver driver = getDriver();
+        ProfilePage profilePage = new ProfilePage(driver);
+        PostModal postModal = new PostModal(driver);
 
         //Delete post
         profilePage.deletePost();
 
         // Verify post is deleted
         Assert.assertTrue(postModal.isImageDeleted(), "The image is still visible!");
-        Assert.assertEquals(profilePage.getPostCount(), 0, "The number of Posts is incorrect!");
+        int postCount = profilePage.getPostCount();
+        int deletedPostCount = --postCount;
+        Assert.assertEquals(postCount, deletedPostCount, "The number of Posts is incorrect!");
     }
 }

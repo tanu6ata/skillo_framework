@@ -42,10 +42,8 @@ public class ProfilePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement deleteButton = wait.until(ExpectedConditions.elementToBeClickable(By.className("fa-trash-alt")));
         deleteButton.click();
-        new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement confirmDeleteButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(), 'Yes')]")));
         confirmDeleteButton.click();
-        new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public void clickUserEditButton (){

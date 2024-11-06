@@ -58,10 +58,8 @@ public class ProfilePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(deleteButton));
         deleteButton.click();
-        new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(confirmDeleteButton));
         confirmDeleteButton.click();
-        new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public void clickUserEditButton (){
